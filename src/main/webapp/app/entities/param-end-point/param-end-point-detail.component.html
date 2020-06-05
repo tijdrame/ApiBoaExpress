@@ -1,0 +1,50 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="paramEndPoint">
+            <h2><span jhiTranslate="apiBoaExpressApp.paramEndPoint.detail.title">Param End Point</span> {{ paramEndPoint.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="apiBoaExpressApp.paramEndPoint.codeParam">Code Param</span></dt>
+                <dd>
+                    <span>{{ paramEndPoint.codeParam }}</span>
+                </dd>
+                <dt><span jhiTranslate="apiBoaExpressApp.paramEndPoint.endPoints">End Points</span></dt>
+                <dd>
+                    <span>{{ paramEndPoint.endPoints }}</span>
+                </dd>
+                <dt><span jhiTranslate="apiBoaExpressApp.paramEndPoint.attribute01">Attribute 01</span></dt>
+                <dd>
+                    <span>{{ paramEndPoint.attribute01 }}</span>
+                </dd>
+                <dt><span jhiTranslate="apiBoaExpressApp.paramEndPoint.attribute02">Attribute 02</span></dt>
+                <dd>
+                    <span>{{ paramEndPoint.attribute02 }}</span>
+                </dd>
+                <dt><span jhiTranslate="apiBoaExpressApp.paramEndPoint.attribute03">Attribute 03</span></dt>
+                <dd>
+                    <span>{{ paramEndPoint.attribute03 }}</span>
+                </dd>
+                <dt><span jhiTranslate="apiBoaExpressApp.paramEndPoint.attribute04">Attribute 04</span></dt>
+                <dd>
+                    <span>{{ paramEndPoint.attribute04 }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/param-end-point', paramEndPoint.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

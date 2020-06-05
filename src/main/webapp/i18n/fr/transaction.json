@@ -1,0 +1,49 @@
+{
+  "apiBoaExpressApp": {
+    "transaction": {
+      "home": {
+        "title": "Transactions",
+        "createLabel": "Créer un nouveau Transaction",
+        "createOrEditLabel": "Créer ou éditer une Transaction",
+        "notFound": "Aucune Transaction trouvée",
+        "refBancaire": "Ref Banque",
+        "sendertel": "Tel Envoyeur",
+        "senderCompte": "Compte Envoyeur",
+        "numTransation": "N°Transaction",
+        "critere": "Critéres de recherche",
+        "search": "Recherche"
+      },
+      "created": "Une nouvelle Transaction a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Transaction avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Transaction avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Transaction {{ id }} ?"
+      },
+      "detail": {
+        "title": "Transaction"
+      },
+      "montant": "Montant",
+      "paysEnvoi": "Pays Envoi",
+      "paysDestination": "Pays Destination",
+      "typeTransaction": "Type Transaction",
+      "questionSecrete": "Question Secréte",
+      "reponseSecrete": "Reponse Secréte",
+      "referenceBancaire": "Référence Bancaire",
+      "raisonTransfert": "Raison Transfert",
+      "canal": "Canal",
+      "senderName": "Nom Envoyeur",
+      "senderPrenom": "Prénom Envoyeur",
+      "senderTelephone": "Tel. Envoyeur",
+      "senderCompte": "Compte Envoyeur",
+      "beneficiaryName": "Nom Bénéficiaire",
+      "beneficiaryPrenom": "Prenom Bénéficiaire",
+      "beneficiaryPhone": "Tel. Bénéficiaire",
+      "numeroTransaction": "N° Transaction",
+      "isConfirmed": "Confirmé?",
+      "codeConfim": "Code Confim",
+      "dateConfirmed": "Date confirmation",
+      "montantFrais": "Frais",
+      "dateCreated": "Date création"
+    }
+  }
+}

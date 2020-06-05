@@ -1,0 +1,27 @@
+{
+  "apiBoaExpressApp": {
+    "paramEndPoint": {
+      "home": {
+        "title": "End Points",
+        "createLabel": "Créer un nouveau End Point",
+        "createOrEditLabel": "Créer ou éditer un End Point",
+        "notFound": "Aucun End Point trouvé"
+      },
+      "created": "Un nouveau End Point a été créé avec l'identifiant {{ param }}",
+      "updated": "L'End Point avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "L'End Point avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer l'End Point {{ id }} ?"
+      },
+      "detail": {
+        "title": "End Point"
+      },
+      "codeParam": "Code Param",
+      "endPoints": "End Points",
+      "attribute01": "Attribute 01",
+      "attribute02": "Attribute 02",
+      "attribute03": "Attribute 03",
+      "attribute04": "Attribute 04"
+    }
+  }
+}

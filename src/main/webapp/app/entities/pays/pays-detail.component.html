@@ -1,0 +1,36 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="pays">
+            <h2><span jhiTranslate="apiBoaExpressApp.pays.detail.title">Pays</span> {{ pays.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="apiBoaExpressApp.pays.pays">Pays</span></dt>
+                <dd>
+                    <span>{{ pays.pays }}</span>
+                </dd>
+                <dt><span jhiTranslate="apiBoaExpressApp.pays.isoAlpha2">Iso Alpha 2</span></dt>
+                <dd>
+                    <span>{{ pays.isoAlpha2 }}</span>
+                </dd>
+                <dt><span jhiTranslate="apiBoaExpressApp.pays.isoAlpha3">Iso Alpha 3</span></dt>
+                <dd>
+                    <span>{{ pays.isoAlpha3 }}</span>
+                </dd>
+                <dt><span jhiTranslate="apiBoaExpressApp.pays.isoNumerique">Iso Numerique</span></dt>
+                <dd>
+                    <span>{{ pays.isoNumerique }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+        </div>
+    </div>
+</div>

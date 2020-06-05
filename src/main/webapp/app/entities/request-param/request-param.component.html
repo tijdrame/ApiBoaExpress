@@ -1,0 +1,81 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="apiBoaExpressApp.requestParam.home.title">Request Params</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-request-param" [routerLink]="['/request-param/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="apiBoaExpressApp.requestParam.home.createLabel">
+            Create a new Request Param
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="requestParams?.length === 0">
+        <span jhiTranslate="apiBoaExpressApp.requestParam.home.notFound">No requestParams found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="requestParams?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <!-- <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th> -->
+                    <th scope="col"  jhiSortBy="channelId"><span jhiTranslate="apiBoaExpressApp.requestParam.channelId">Channel Id</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="userId"><span jhiTranslate="apiBoaExpressApp.requestParam.userId">User Id</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="transactionSecret"><span jhiTranslate="apiBoaExpressApp.requestParam.transactionSecret">Transaction Secret</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="requestId"><span jhiTranslate="apiBoaExpressApp.requestParam.requestId">Request Id</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="codePartenaire"><span jhiTranslate="apiBoaExpressApp.requestParam.codePartenaire">Code Partenaire</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="pays"><span jhiTranslate="apiBoaExpressApp.requestParam.pays">Pays</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let requestParam of requestParams ;trackBy: trackId">
+                    <!-- <td><a [routerLink]="['/request-param', requestParam.id, 'view']">{{ requestParam.id }}</a></td> -->
+                    <td>{{ requestParam.channelId }}</td>
+                    <td>{{ requestParam.userId }}</td>
+                    <td>{{ requestParam.transactionSecret }}</td>
+                    <td>{{ requestParam.requestId }}</td>
+                    <td>{{ requestParam.codePartenaire }}</td>
+                    <td>{{ requestParam.pays }}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/request-param', requestParam.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/request-param', requestParam.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(requestParam)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="requestParams?.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

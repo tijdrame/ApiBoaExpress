@@ -1,0 +1,27 @@
+{
+  "apiBoaExpressApp": {
+    "requestParam": {
+      "home": {
+        "title": "RequestParams",
+        "createLabel": "Créer un nouveau Request Param",
+        "createOrEditLabel": "Créer ou éditer un Request Param",
+        "notFound": "Aucun Request Param trouvé"
+      },
+      "created": "Un nouveau Request Param a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Request Param avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Request Param avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Request Param {{ id }} ?"
+      },
+      "detail": {
+        "title": "Request Param"
+      },
+      "channelId": "Channel Id",
+      "userId": "User Id",
+      "transactionSecret": "Transaction Secret",
+      "requestId": "Request Id",
+      "codePartenaire": "Code Partenaire",
+      "pays": "Pays"
+    }
+  }
+}

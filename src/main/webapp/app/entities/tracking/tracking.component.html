@@ -1,0 +1,114 @@
+<div>
+    <h2>
+        <span jhiTranslate="apiBoaExpressApp.transaction.home.critere">Critéres de recherche</span>
+    </h2>
+    <div class="col-8">
+        
+        <form name="editForm" role="form" novalidate (ngSubmit)="search()" #editForm="ngForm">
+            <div class="row">
+                <div class="col">
+                    <input type="date" class="form-control" name="dateDeb" [(ngModel)]="dateDeb"  required/>
+                </div>
+                <div class="col">
+                    <input type="date" class="form-control" name="dateFin" [(ngModel)]="dateFin"  required/>
+                </div>
+            
+                <div class="col">
+                <input type="text" [(ngModel)]="requestId" name="requestId" id="field_tel" 
+                placeholder="Request ID" class="form-control">
+                </div>
+                
+            </div>
+            <br>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col">
+                <button type="submit"  class="btn btn-primary" style="align-content:right;"
+                [disabled]="!editForm.valid">
+                    <span class="fa fa-search"></span>&nbsp;<span jhiTranslate="apiBoaExpressApp.transaction.home.search">Rechercher</span>
+                </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <h2 id="page-heading">
+        <span jhiTranslate="apiBoaExpressApp.tracking.home.title">Trackings</span>
+
+        <!-- <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tracking" [routerLink]="['/tracking/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="apiBoaExpressApp.tracking.home.createLabel">
+            Create a new Tracking
+            </span>
+        </button> -->
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="trackings?.length === 0">
+        <span jhiTranslate="apiBoaExpressApp.tracking.home.notFound">No trackings found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="trackings?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="codeResponse"><span jhiTranslate="apiBoaExpressApp.tracking.codeResponse">Code Response</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="endPoint"><span jhiTranslate="apiBoaExpressApp.tracking.endPoint">End Point</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="loginActeur"><span jhiTranslate="apiBoaExpressApp.tracking.loginActeur">Login Acteur</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="requestId"><span jhiTranslate="apiBoaExpressApp.tracking.requestId">Request Id</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="dateRequest"><span jhiTranslate="apiBoaExpressApp.tracking.dateRequest">Date Request</span> <fa-icon icon="sort"></fa-icon></th>
+                    <!-- <th scope="col"  jhiSortBy="requestTr"><span jhiTranslate="apiBoaExpressApp.tracking.requestTr">Request Tr</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="responseTr"><span jhiTranslate="apiBoaExpressApp.tracking.responseTr">Response Tr</span> <fa-icon icon="sort"></fa-icon></th> -->
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tracking of trackings ;trackBy: trackId">
+                    <td>{{ tracking.codeResponse }}</td>
+                    <td>{{ tracking.endPoint }}</td>
+                    <td>{{ tracking.loginActeur }}</td>
+                    <td>{{ tracking.requestId }}</td>
+                    <td>{{ tracking.dateRequest | date:'medium' }}</td>
+                    <!-- <td>{{ tracking.requestTr }}</td>
+                    <td>{{ tracking.responseTr }}</td> -->
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/tracking', tracking.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <!-- <button type="submit"
+                                    [routerLink]="['/tracking', tracking.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(tracking)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button> -->
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="trackings?.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,174 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="transaction">
+            <h2><span jhiTranslate="apiBoaExpressApp.transaction.detail.title">Transaction</span> {{ transaction.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <div class="row">
+                <div class="col">
+                <dt><span jhiTranslate="apiBoaExpressApp.transaction.montant">Montant</span></dt>
+                <dd>
+                    <span>{{ transaction.montant|number }}</span>
+                </dd>
+                </div>
+                <div class="col">
+                    <dt><span jhiTranslate="apiBoaExpressApp.transaction.paysEnvoi">Pays Envoi</span></dt>
+                    <dd>
+                        <span>{{ transaction.paysEnvoi }}</span>
+                    </dd>
+                </div>
+                <div class="col">
+                    <dt><span jhiTranslate="apiBoaExpressApp.transaction.paysDestination">Pays Destination</span></dt>
+                    <dd>
+                        <span>{{ transaction.paysDestination }}</span>
+                    </dd>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <dt><span jhiTranslate="apiBoaExpressApp.transaction.typeTransaction">Type Transaction</span></dt>
+                    <dd>
+                        <span>{{ transaction.typeTransaction }}</span>
+                    </dd>
+                </div>
+                <div class="col">
+                    <dt><span jhiTranslate="apiBoaExpressApp.transaction.questionSecrete">Question Secrete</span></dt>
+                <dd>
+                    <span>{{ transaction.questionSecrete }}</span>
+                </dd>
+                </div>
+                <div class="col">
+                    <dt><span jhiTranslate="apiBoaExpressApp.transaction.reponseSecrete">Reponse Secrete</span></dt>
+                <dd>
+                    <span>{{ transaction.reponseSecrete }}</span>
+                </dd>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <dt><span jhiTranslate="apiBoaExpressApp.transaction.referenceBancaire">Reference Bancaire</span></dt>
+                <dd>
+                    <span>{{ transaction.referenceBancaire }}</span>
+                </dd>
+                </div>
+                <div class="col">
+                    <dt><span jhiTranslate="apiBoaExpressApp.transaction.raisonTransfert">Raison Transfert</span></dt>
+                <dd>
+                    <span>{{ transaction.raisonTransfert }}</span>
+                </dd>
+                </div>
+                <div class="col">
+                    <dt><span jhiTranslate="apiBoaExpressApp.transaction.canal">Canal</span></dt>
+                <dd>
+                    <span>{{ transaction.canal }}</span>
+                </dd>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <dt><span jhiTranslate="apiBoaExpressApp.transaction.senderName">Sender Name</span></dt>
+                <dd>
+                    <span>{{ transaction.senderName }}</span>
+                </dd>
+                </div>
+                <div class="col">
+                    <dt><span jhiTranslate="apiBoaExpressApp.transaction.senderPrenom">Sender Prenom</span></dt>
+                <dd>
+                    <span>{{ transaction.senderPrenom }}</span>
+                </dd>
+                </div>
+                <div class="col">
+                    <dt><span jhiTranslate="apiBoaExpressApp.transaction.senderTelephone">Sender Telephone</span></dt>
+                <dd>
+                    <span>{{ transaction.senderTelephone }}</span>
+                </dd>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <dt><span jhiTranslate="apiBoaExpressApp.transaction.senderCompte">Sender Compte</span></dt>
+                <dd>
+                    <span>{{ transaction.senderCompte }}</span>
+                </dd>
+                </div>
+                <div class="col">
+                    <dt><span jhiTranslate="apiBoaExpressApp.transaction.beneficiaryName">Beneficiary Name</span></dt>
+                <dd>
+                    <span>{{ transaction.beneficiaryName }}</span>
+                </dd>
+                </div>
+                <div class="col">
+                    <dt><span jhiTranslate="apiBoaExpressApp.transaction.beneficiaryPrenom">Beneficiary Prenom</span></dt>
+                <dd>
+                    <span>{{ transaction.beneficiaryPrenom }}</span>
+                </dd>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <dt><span jhiTranslate="apiBoaExpressApp.transaction.beneficiaryPhone">Beneficiary Phone</span></dt>
+                <dd>
+                    <span>{{ transaction.beneficiaryPhone }}</span>
+                </dd>
+                </div>
+                <div class="col">
+                    <dt><span jhiTranslate="apiBoaExpressApp.transaction.numeroTransaction">Numero Transaction</span></dt>
+                <dd>
+                    <span>{{ transaction.numeroTransaction }}</span>
+                </dd>
+                </div>
+                <div class="col">
+                    <dt><span jhiTranslate="apiBoaExpressApp.transaction.isConfirmed">Is Confirmed</span></dt>
+                <dd>
+                    <span>{{ transaction.isConfirmed ?'Oui':'Non' }}</span>
+                </dd>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <dt><span jhiTranslate="apiBoaExpressApp.transaction.montantFrais">Numero Transaction</span></dt>
+                <dd>
+                    <span>{{ transaction.montantFrais|number }}</span>
+                </dd>
+                
+                </div>
+                <div class="col">
+                    <dt><span jhiTranslate="apiBoaExpressApp.transaction.dateCreated">Numero Transaction</span></dt>
+                <dd>
+                    <span>{{ transaction.dateCreated | date:'dd-MM-yyyy HH:mm:ss' }}</span>
+                </dd>
+                </div>
+                <div class="col">
+                    <dt><span jhiTranslate="apiBoaExpressApp.transaction.dateConfirmed">Numero Transaction</span></dt>
+                    <dd>
+                        <span>{{ transaction.dateConfirmed | date:'dd-MM-yyyy HH:mm:ss' }}</span>
+                    </dd>
+                </div>
+            </div>
+                
+            <dl class="row-md jh-entity-details">
+                
+                
+                <!-- <dt><span jhiTranslate="apiBoaExpressApp.transaction.codeConfim">Code Confim</span></dt>
+                <dd>
+                    <span>{{ transaction.codeConfim }}</span>
+                </dd> -->
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/transaction', transaction.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,98 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-request-param-heading" jhiTranslate="apiBoaExpressApp.requestParam.home.createOrEditLabel">Create or edit a Request Param</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.requestParam.channelId" for="field_channelId">Channel Id</label>
+                    <input type="text" class="form-control" name="channelId" id="field_channelId"
+                           formControlName="channelId"/>
+                    <div *ngIf="editForm.get('channelId')!.invalid && (editForm.get('channelId')!.dirty || editForm.get('channelId')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('channelId')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.requestParam.userId" for="field_userId">User Id</label>
+                    <input type="text" class="form-control" name="userId" id="field_userId"
+                           formControlName="userId"/>
+                    <div *ngIf="editForm.get('userId')!.invalid && (editForm.get('userId')!.dirty || editForm.get('userId')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('userId')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.requestParam.transactionSecret" for="field_transactionSecret">Transaction Secret</label>
+                    <input type="text" class="form-control" name="transactionSecret" id="field_transactionSecret"
+                           formControlName="transactionSecret"/>
+                    <div *ngIf="editForm.get('transactionSecret')!.invalid && (editForm.get('transactionSecret')!.dirty || editForm.get('transactionSecret')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('transactionSecret')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.requestParam.requestId" for="field_requestId">Request Id</label>
+                    <input type="text" class="form-control" name="requestId" id="field_requestId"
+                           formControlName="requestId"/>
+                    <div *ngIf="editForm.get('requestId')!.invalid && (editForm.get('requestId')!.dirty || editForm.get('requestId')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('requestId')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.requestParam.codePartenaire" for="field_codePartenaire">Code Partenaire</label>
+                    <input type="text" class="form-control" name="codePartenaire" id="field_codePartenaire"
+                           formControlName="codePartenaire"/>
+                    <div *ngIf="editForm.get('codePartenaire')!.invalid && (editForm.get('codePartenaire')!.dirty || editForm.get('codePartenaire')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('codePartenaire')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.requestParam.pays" for="field_pays">Pays</label>
+                    <input type="text" class="form-control" name="pays" id="field_pays"
+                           formControlName="pays"/>
+                    <div *ngIf="editForm.get('pays')!.invalid && (editForm.get('pays')!.dirty || editForm.get('pays')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('pays')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

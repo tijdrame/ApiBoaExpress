@@ -1,0 +1,50 @@
+{
+  "apiBoaExpressApp": {
+    "transaction": {
+      "home": {
+        "title": "Transactions",
+        "createLabel": "Create a new Transaction",
+        "createOrEditLabel": "Create or edit a Transaction",
+        "notFound": "No Transactions found",
+        "refBancaire": "Ref Bank",
+        "sendertel": "Sender Phone",
+        "senderCompte": "Sender Account",
+        "numTransation": "N°Transaction",
+        "critere": "Search Criteria",
+        "search": "Search"
+      },
+      "created": "A new Transaction is created with identifier {{ param }}",
+      "updated": "A Transaction is updated with identifier {{ param }}",
+      "deleted": "A Transaction is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Transaction {{ id }}?"
+      },
+      "detail": {
+        "title": "Transaction"
+      },
+      "montant": "Amount",
+      "paysEnvoi": "Sending country",
+      "paysDestination": "Country Destination",
+      "typeTransaction": "Type Transaction",
+      "questionSecrete": "Secret question",
+      "reponseSecrete": "Secret answer",
+      "referenceBancaire": "Bank reference",
+      "raisonTransfert": "Reason  Transfert",
+      "canal": "Canal",
+      "senderName": "Sender Name",
+      "senderPrenom": "Sender Prenom",
+      "senderTelephone": "Sender Telephone",
+      "senderCompte": "Sender Compte",
+      "beneficiaryName": "Beneficiary Name",
+      "beneficiaryPrenom": "Beneficiary Prenom",
+      "beneficiaryPhone": "Beneficiary Phone",
+      "numeroTransaction": "Numero Transaction",
+      "isConfirmed": "Is Confirmed?",
+      "codeConfim": "Code Confim",
+      "dateConfirmed": "Confirmed Date",
+      "dateCreated": "Created Date",
+      "montantFrais": "Fees"
+      
+    }
+  }
+}

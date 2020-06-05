@@ -1,0 +1,50 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="requestParam">
+            <h2><span jhiTranslate="apiBoaExpressApp.requestParam.detail.title">Request Param</span> {{ requestParam.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="apiBoaExpressApp.requestParam.channelId">Channel Id</span></dt>
+                <dd>
+                    <span>{{ requestParam.channelId }}</span>
+                </dd>
+                <dt><span jhiTranslate="apiBoaExpressApp.requestParam.userId">User Id</span></dt>
+                <dd>
+                    <span>{{ requestParam.userId }}</span>
+                </dd>
+                <dt><span jhiTranslate="apiBoaExpressApp.requestParam.transactionSecret">Transaction Secret</span></dt>
+                <dd>
+                    <span>{{ requestParam.transactionSecret }}</span>
+                </dd>
+                <dt><span jhiTranslate="apiBoaExpressApp.requestParam.requestId">Request Id</span></dt>
+                <dd>
+                    <span>{{ requestParam.requestId }}</span>
+                </dd>
+                <dt><span jhiTranslate="apiBoaExpressApp.requestParam.codePartenaire">Code Partenaire</span></dt>
+                <dd>
+                    <span>{{ requestParam.codePartenaire }}</span>
+                </dd>
+                <dt><span jhiTranslate="apiBoaExpressApp.requestParam.pays">Pays</span></dt>
+                <dd>
+                    <span>{{ requestParam.pays }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/request-param', requestParam.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

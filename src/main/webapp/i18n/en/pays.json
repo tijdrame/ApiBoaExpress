@@ -1,0 +1,25 @@
+{
+  "apiBoaExpressApp": {
+    "pays": {
+      "home": {
+        "title": "Country",
+        "createLabel": "Create a new Pays",
+        "createOrEditLabel": "Create or edit a Pays",
+        "notFound": "No Pays found"
+      },
+      "created": "A new Pays is created with identifier {{ param }}",
+      "updated": "A Pays is updated with identifier {{ param }}",
+      "deleted": "A Pays is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Pays {{ id }}?"
+      },
+      "detail": {
+        "title": "Country"
+      },
+      "pays": "Country",
+      "isoAlpha2": "Iso Alpha 2",
+      "isoAlpha3": "Iso Alpha 3",
+      "isoNumerique": "Iso Numerique"
+    }
+  }
+}

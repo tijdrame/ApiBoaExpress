@@ -1,0 +1,198 @@
+<div>
+    <!-- <h2 id="page-heading">
+        <span jhiTranslate="apiBoaExpressApp.transaction.home.title">Transactions</span>
+
+         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-transaction" [routerLink]="['/transaction/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="apiBoaExpressApp.transaction.home.createLabel">
+            Create a new Transaction
+            </span>
+        </button> 
+    </h2> -->
+
+    <h2>
+        <span jhiTranslate="apiBoaExpressApp.transaction.home.critere">Critéres de recherche</span>
+    </h2>
+    <div class="col-8">
+      
+        
+        
+        
+        <form name="editForm" role="form" novalidate (ngSubmit)="search()" #editForm="ngForm">
+            <div class="row">
+                <div class="col">
+                    <input type="date" class="form-control" name="dateDeb" [(ngModel)]="dateDeb"  required/>
+                </div>
+                <div class="col">
+                <input type="text" [(ngModel)]="refBancaire" name="refBancaire" id="field_refBancaire" 
+                placeholder="Reference Bancaire" class="form-control">
+                </div>
+                <div class="col">
+                <input type="text" [(ngModel)]="sendertel" name="sendertel" id="field_sendertel" 
+                class="form-control" placeholder="Sender Phone">
+                </div>
+                <div class="col">
+                    <select [(ngModel)]="paysEnvoi" name="paysEnvoi" id="paysEnvoi" 
+                    class="form-control" >
+                    <option [ngValue]=""  selected>Pays envoi</option>
+                        <option *ngFor="let p of paysList; let i = index" [ngValue]="p" >
+                          {{p.pays}}
+                        </option>
+                      </select>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <input type="date" class="form-control" name="dateFin" [(ngModel)]="dateFin"  required/>
+                </div>
+                <div class="col">
+                <input type="text" [(ngModel)]="senderCompte" name="senderCompte" id="field_tel" 
+                placeholder="Sender Account" class="form-control">
+                </div>
+                <div class="col">
+                <input type="text" [(ngModel)]="numTransation" name="numTransation" id="field_del" 
+                class="form-control" placeholder="N° Transaction">
+                </div>
+                <div class="col">
+                    <select [(ngModel)]="paysDestination" name="paysDestination" id="paysDestination" 
+                    class="form-control" >
+                    <option [ngValue]="" selected>Pays destination</option>
+                        <option *ngFor="let p of paysList; let i = index" [ngValue]="p" >
+                          {{p.pays}}
+                        </option>
+                      </select>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col">
+                <button type="submit"  class="btn btn-primary" style="align-content:right;"
+                [disabled]="!editForm.valid">
+                    <span class="fa fa-search"></span>&nbsp;<span jhiTranslate="apiBoaExpressApp.transaction.home.search">Rechercher</span>
+                </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="transactions?.length === 0">
+        <span jhiTranslate="apiBoaExpressApp.transaction.home.notFound">No transactions found</span>
+    </div>
+
+    <div id="myComponent">
+    <h2 id="page-heading">
+        <span jhiTranslate="apiBoaExpressApp.transaction.home.title">Transactions</span>
+    </h2>
+    
+    <div class="table-responsive" id="entities" *ngIf="transactions?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="montant"><span jhiTranslate="apiBoaExpressApp.transaction.montant">Montant</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="paysEnvoi"><span jhiTranslate="apiBoaExpressApp.transaction.paysEnvoi">Pays Envoi</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="paysDestination"><span jhiTranslate="apiBoaExpressApp.transaction.paysDestination">Pays Destination</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="typeTransaction"><span jhiTranslate="apiBoaExpressApp.transaction.typeTransaction">Type Transaction</span> <fa-icon icon="sort"></fa-icon></th>
+                    <!-- <th scope="col"  jhiSortBy="questionSecrete"><span jhiTranslate="apiBoaExpressApp.transaction.questionSecrete">Question Secrete</span> <fa-icon icon="sort"></fa-icon></th> -->
+                    <!-- <th scope="col"  jhiSortBy="reponseSecrete"><span jhiTranslate="apiBoaExpressApp.transaction.reponseSecrete">Reponse Secrete</span> <fa-icon icon="sort"></fa-icon></th> -->
+                    <th scope="col"  jhiSortBy="referenceBancaire"><span jhiTranslate="apiBoaExpressApp.transaction.referenceBancaire">Reference Bancaire</span> <fa-icon icon="sort"></fa-icon></th>
+                    <!-- <th scope="col"  jhiSortBy="raisonTransfert"><span jhiTranslate="apiBoaExpressApp.transaction.raisonTransfert">Raison Transfert</span> <fa-icon icon="sort"></fa-icon></th> -->
+                    <th scope="col"  jhiSortBy="canal"><span jhiTranslate="apiBoaExpressApp.transaction.canal">Canal</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="senderName"><span jhiTranslate="apiBoaExpressApp.transaction.senderName">Sender Name</span> <fa-icon icon="sort"></fa-icon></th>
+                    <!-- <th scope="col"  jhiSortBy="senderPrenom"><span jhiTranslate="apiBoaExpressApp.transaction.senderPrenom">Sender Prenom</span> <fa-icon icon="sort"></fa-icon></th> -->
+                    <th scope="col"  jhiSortBy="senderTelephone"><span jhiTranslate="apiBoaExpressApp.transaction.senderTelephone">Sender Telephone</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="senderCompte"><span jhiTranslate="apiBoaExpressApp.transaction.senderCompte">Sender Compte</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="beneficiaryName"><span jhiTranslate="apiBoaExpressApp.transaction.beneficiaryName">Beneficiary Name</span> <fa-icon icon="sort"></fa-icon></th>
+                    <!-- <th scope="col"  jhiSortBy="beneficiaryPrenom"><span jhiTranslate="apiBoaExpressApp.transaction.beneficiaryPrenom">Beneficiary Prenom</span> <fa-icon icon="sort"></fa-icon></th> -->
+                    <th scope="col"  jhiSortBy="beneficiaryPhone"><span jhiTranslate="apiBoaExpressApp.transaction.beneficiaryPhone">Beneficiary Phone</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="numeroTransaction"><span jhiTranslate="apiBoaExpressApp.transaction.numeroTransaction">Numero Transaction</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="montantFrais"><span jhiTranslate="apiBoaExpressApp.transaction.montantFrais">montantFrais</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="dateConfirmed"><span jhiTranslate="apiBoaExpressApp.transaction.dateConfirmed">Is Confirmed</span> <fa-icon icon="sort"></fa-icon></th>
+                    <!-- <th scope="col"  jhiSortBy="codeConfim"><span jhiTranslate="apiBoaExpressApp.transaction.codeConfim">Code Confim</span> <fa-icon icon="sort"></fa-icon></th> -->
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let transaction of transactions ;trackBy: trackId">
+                    <td>{{ transaction.montant | number }}</td>
+                    <td>{{ transaction.paysEnvoi }}</td>
+                    <td>{{ transaction.paysDestination }}</td>
+                    <td>{{ transaction.typeTransaction=='1'?'Cash-Cash': 
+                        transaction.typeTransaction=='2'? 'Compte-Cash':
+                        transaction.typeTransaction=='3'? 'Compte-Compte':'Cash-Compte'
+                     }}</td>
+                    <!-- <td>{{ transaction.questionSecrete }}</td>
+                    <td>{{ transaction.reponseSecrete }}</td> -->
+                    <td>{{ transaction.referenceBancaire }}</td>
+                    <!-- <td>{{ transaction.raisonTransfert }}</td> -->
+                    <td>{{ transaction.canal }}</td>
+                    <!-- <td>{{ transaction.senderName }}</td> -->
+                    <td>{{ transaction.senderPrenom }} {{ transaction.senderName }}</td>
+                    <td>{{ transaction.senderTelephone }}</td>
+                    <td>{{ transaction.senderCompte }}</td>
+                    <!-- <td>{{ transaction.beneficiaryName }}</td> -->
+                    <td>{{ transaction.beneficiaryPrenom }} {{ transaction.beneficiaryName }}</td>
+                    <td>{{ transaction.beneficiaryPhone }}</td>
+                    <td>{{ transaction.numeroTransaction }}</td>
+                    <td>{{ transaction.montantFrais | number }}</td>
+                    <td>{{ transaction.dateConfirmed | date:'dd-MM-yyyy' }}</td>
+                    <!-- <td>{{ transaction.codeConfim }}</td> -->
+                    <td class="text-right" data-html2canvas-ignore="true">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/transaction', transaction.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <!-- <button type="submit"
+                                    [routerLink]="['/transaction', transaction.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(transaction)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button> -->
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+               <tr>
+                <th>{{ totalMontant|number }}</th>
+                <td></td><td></td><td></td><td></td><td></td><td></td>
+                <td></td><td></td><td></td><td></td><td></td>
+                <th>{{ totalFrais|number }}</th>
+               </tr> 
+            </tfoot>
+        </table>
+    </div>
+    <button type="submit" style="float: right;"
+            (click)="downLoadPdf()"
+            class="btn btn-success">
+        <span class="fa fa-print"></span>&nbsp;<span jhiTranslate="global.imprimer"> Imprimer</span>
+    </button>
+</div>
+
+    <div *ngIf="transactions?.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

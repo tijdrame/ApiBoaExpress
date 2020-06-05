@@ -1,0 +1,216 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-transaction-heading" jhiTranslate="apiBoaExpressApp.transaction.home.createOrEditLabel">Create or edit a Transaction</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.transaction.montant" for="field_montant">Montant</label>
+                    <input type="number" class="form-control" name="montant" id="field_montant"
+                           formControlName="montant"/>
+                    <div *ngIf="editForm.get('montant')!.invalid && (editForm.get('montant')!.dirty || editForm.get('montant')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('montant')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('montant')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.transaction.paysEnvoi" for="field_paysEnvoi">Pays Envoi</label>
+                    <input type="text" class="form-control" name="paysEnvoi" id="field_paysEnvoi"
+                           formControlName="paysEnvoi"/>
+                    <div *ngIf="editForm.get('paysEnvoi')!.invalid && (editForm.get('paysEnvoi')!.dirty || editForm.get('paysEnvoi')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('paysEnvoi')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.transaction.paysDestination" for="field_paysDestination">Pays Destination</label>
+                    <input type="text" class="form-control" name="paysDestination" id="field_paysDestination"
+                           formControlName="paysDestination"/>
+                    <div *ngIf="editForm.get('paysDestination')!.invalid && (editForm.get('paysDestination')!.dirty || editForm.get('paysDestination')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('paysDestination')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.transaction.typeTransaction" for="field_typeTransaction">Type Transaction</label>
+                    <input type="text" class="form-control" name="typeTransaction" id="field_typeTransaction"
+                           formControlName="typeTransaction"/>
+                    <div *ngIf="editForm.get('typeTransaction')!.invalid && (editForm.get('typeTransaction')!.dirty || editForm.get('typeTransaction')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('typeTransaction')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.transaction.questionSecrete" for="field_questionSecrete">Question Secrete</label>
+                    <input type="text" class="form-control" name="questionSecrete" id="field_questionSecrete"
+                           formControlName="questionSecrete"/>
+                    <div *ngIf="editForm.get('questionSecrete')!.invalid && (editForm.get('questionSecrete')!.dirty || editForm.get('questionSecrete')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('questionSecrete')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.transaction.reponseSecrete" for="field_reponseSecrete">Reponse Secrete</label>
+                    <input type="text" class="form-control" name="reponseSecrete" id="field_reponseSecrete"
+                           formControlName="reponseSecrete"/>
+                    <div *ngIf="editForm.get('reponseSecrete')!.invalid && (editForm.get('reponseSecrete')!.dirty || editForm.get('reponseSecrete')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('reponseSecrete')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.transaction.referenceBancaire" for="field_referenceBancaire">Reference Bancaire</label>
+                    <input type="text" class="form-control" name="referenceBancaire" id="field_referenceBancaire"
+                           formControlName="referenceBancaire"/>
+                    <div *ngIf="editForm.get('referenceBancaire')!.invalid && (editForm.get('referenceBancaire')!.dirty || editForm.get('referenceBancaire')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('referenceBancaire')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.transaction.raisonTransfert" for="field_raisonTransfert">Raison Transfert</label>
+                    <input type="text" class="form-control" name="raisonTransfert" id="field_raisonTransfert"
+                           formControlName="raisonTransfert"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.transaction.canal" for="field_canal">Canal</label>
+                    <input type="text" class="form-control" name="canal" id="field_canal"
+                           formControlName="canal"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.transaction.senderName" for="field_senderName">Sender Name</label>
+                    <input type="text" class="form-control" name="senderName" id="field_senderName"
+                           formControlName="senderName"/>
+                    <div *ngIf="editForm.get('senderName')!.invalid && (editForm.get('senderName')!.dirty || editForm.get('senderName')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('senderName')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.transaction.senderPrenom" for="field_senderPrenom">Sender Prenom</label>
+                    <input type="text" class="form-control" name="senderPrenom" id="field_senderPrenom"
+                           formControlName="senderPrenom"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.transaction.senderTelephone" for="field_senderTelephone">Sender Telephone</label>
+                    <input type="text" class="form-control" name="senderTelephone" id="field_senderTelephone"
+                           formControlName="senderTelephone"/>
+                    <div *ngIf="editForm.get('senderTelephone')!.invalid && (editForm.get('senderTelephone')!.dirty || editForm.get('senderTelephone')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('senderTelephone')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.transaction.senderCompte" for="field_senderCompte">Sender Compte</label>
+                    <input type="text" class="form-control" name="senderCompte" id="field_senderCompte"
+                           formControlName="senderCompte"/>
+                    <div *ngIf="editForm.get('senderCompte')!.invalid && (editForm.get('senderCompte')!.dirty || editForm.get('senderCompte')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('senderCompte')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.transaction.beneficiaryName" for="field_beneficiaryName">Beneficiary Name</label>
+                    <input type="text" class="form-control" name="beneficiaryName" id="field_beneficiaryName"
+                           formControlName="beneficiaryName"/>
+                    <div *ngIf="editForm.get('beneficiaryName')!.invalid && (editForm.get('beneficiaryName')!.dirty || editForm.get('beneficiaryName')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('beneficiaryName')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.transaction.beneficiaryPrenom" for="field_beneficiaryPrenom">Beneficiary Prenom</label>
+                    <input type="text" class="form-control" name="beneficiaryPrenom" id="field_beneficiaryPrenom"
+                           formControlName="beneficiaryPrenom"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.transaction.beneficiaryPhone" for="field_beneficiaryPhone">Beneficiary Phone</label>
+                    <input type="text" class="form-control" name="beneficiaryPhone" id="field_beneficiaryPhone"
+                           formControlName="beneficiaryPhone"/>
+                    <div *ngIf="editForm.get('beneficiaryPhone')!.invalid && (editForm.get('beneficiaryPhone')!.dirty || editForm.get('beneficiaryPhone')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('beneficiaryPhone')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.transaction.numeroTransaction" for="field_numeroTransaction">Numero Transaction</label>
+                    <input type="text" class="form-control" name="numeroTransaction" id="field_numeroTransaction"
+                           formControlName="numeroTransaction"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.transaction.isConfirmed" for="field_isConfirmed">Is Confirmed</label>
+                    <input type="checkbox" class="form-control" name="isConfirmed" id="field_isConfirmed"
+                           formControlName="isConfirmed"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="apiBoaExpressApp.transaction.codeConfim" for="field_codeConfim">Code Confim</label>
+                    <input type="text" class="form-control" name="codeConfim" id="field_codeConfim"
+                           formControlName="codeConfim"/>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

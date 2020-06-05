@@ -1,0 +1,38 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="Tidiane (generated)" id="1591349716469-8">
+        <createIndex indexName="IX_user_extraPK" tableName="user_extra" unique="true">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Tidiane (generated)" id="1591349716469-9">
+        <addForeignKeyConstraint baseColumnNames="pays_id" baseTableName="user_extra" constraintName="FK3oritptqvjcxi0dg5jwvf9fap" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="pays" validate="true"/>
+    </changeSet>
+    <changeSet author="Tidiane (generated)" id="1591349716469-10">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_extra" constraintName="FKj6o22j2hl0suca5i7f77olhro" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user" validate="true"/>
+    </changeSet>
+    <changeSet author="Tidiane (generated)" id="1591349716469-11">
+        <dropColumn columnName="id" tableName="user_extra"/>
+    </changeSet>
+    <changeSet author="Tidiane (generated)" id="1591349716469-1">
+        <alterSequence sequenceName="sequence_generator"/>
+    </changeSet>
+    <changeSet author="Tidiane (generated)" id="1591349716469-2">
+        <alterSequence sequenceName="tracking_id_seq"/>
+    </changeSet>
+    <changeSet author="Tidiane (generated)" id="1591349716469-3">
+        <alterSequence sequenceName="transaction_id_seq"/>
+    </changeSet>
+    <changeSet author="Tidiane (generated)" id="1591349716469-4">
+        <addNotNullConstraint columnDataType="varchar(255)" columnName="pays" tableName="request_param" validate="true"/>
+    </changeSet>
+    <changeSet author="Tidiane (generated)" id="1591349716469-5">
+        <dropNotNullConstraint columnDataType="bigint" columnName="pays_id" tableName="user_extra"/>
+    </changeSet>
+    <changeSet author="Tidiane (generated)" id="1591349716469-6">
+        <dropPrimaryKey tableName="user_extra"/>
+    </changeSet>
+    <changeSet author="Tidiane (generated)" id="1591349716469-7">
+        <addPrimaryKey columnNames="user_id" constraintName="user_extraPK" tableName="user_extra"/>
+    </changeSet>
+</databaseChangeLog>
