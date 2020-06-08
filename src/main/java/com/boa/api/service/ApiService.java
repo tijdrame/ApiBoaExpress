@@ -157,8 +157,7 @@ public class ApiService {
             // builder.append("<adresse_recepteur>"+envoiTransfert.getTransaction().getBeneficiary()+"</adresse_recepteur>");
             builder.append("</envoietransaction>");
             log.info("request envoi [{}]", builder.toString());
-            HttpURLConnection conn = utils.doConnexion(endPoint.getEndPoints(), builder.toString(), "application/xml",
-                    "");
+            HttpURLConnection conn = utils.doConnexion(endPoint.getEndPoints(), builder.toString(), "application/xml","");
             BufferedReader br = null;
             JSONObject obj = new JSONObject();
             String result = "";
