@@ -38,5 +38,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
     @Query("Select SUM(t.montant), SUM(t.montantFrais) FROM Transaction t where t.isConfirmed =true")
     Object getMontantAndFrais();
+
+    @Query("Select SUM(t.montant), SUM(t.montantFrais), p.pays FROM Transaction t, Pays p where t.isConfirmed =true and p.isoAlpha2=t.paysEnvoi group by p.pays")
+    List<Object> getAmoutPerCountry();
     
 }

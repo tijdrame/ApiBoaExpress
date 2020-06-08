@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ChartsModule } from 'ng2-charts';
+
 
 import './vendor';
 import { ApiBoaExpressSharedModule } from 'app/shared/shared.module';
@@ -18,6 +20,7 @@ import { ErrorComponent } from './layouts/error/error.component';
 @NgModule({
   imports: [
     BrowserModule,
+    ChartsModule,
     ApiBoaExpressSharedModule,
     ApiBoaExpressCoreModule,
     ApiBoaExpressHomeModule,

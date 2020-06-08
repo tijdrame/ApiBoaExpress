@@ -1,6 +1,8 @@
 package com.boa.api.web.rest;
 
 import com.boa.api.domain.Transaction;
+import com.boa.api.response.AmountPerCountryResponse;
+import com.boa.api.response.ItemCountry;
 import com.boa.api.response.MontantTransactionResponse;
 import com.boa.api.response.TotalTransactionResponse;
 import com.boa.api.service.TransactionService;
@@ -193,4 +195,33 @@ public class TransactionResource {
         
         return ResponseEntity.ok().body(response);
     }
+
+    @GetMapping(path = "/transactionsCountry")
+    public ResponseEntity<AmountPerCountryResponse>getAmoutPerCountry() {
+        List<Object> myObjects = transactionService.getAmoutPerCountry();
+        log.info("myObj [{}]",myObjects);
+        AmountPerCountryResponse response = new AmountPerCountryResponse();
+        if(myObjects!=null){
+            for (Object object : myObjects) {
+                ItemCountry itemCountry = new ItemCountry();
+                Object[] arrayRefVar =  (Object[]) object;
+            log.info("myObj [{}]",arrayRefVar[0]);
+            itemCountry
+            .amount((Double)arrayRefVar[0])
+            .fees((Double)arrayRefVar[1])
+            .country(arrayRefVar[2].toString())
+            ;
+            response.getItemCountries().add(itemCountry);
+            }
+            
+        }
+        
+        response.setCode("200");
+        response.setDescription("Operation effectuee avec success");
+        response.setDateResponse(Instant.now());
+        
+        return ResponseEntity.ok().body(response);
+    }
+
+    
 }

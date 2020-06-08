@@ -19,6 +19,7 @@ import org.springframework.util.StringUtils;
 import liquibase.pro.packaged.p;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -125,5 +126,9 @@ public class TransactionService {
     
     public Object getMontantAndFrais() {
         return transactionRepository.getMontantAndFrais();
+    }
+
+    public List<Object> getAmoutPerCountry() {
+        return transactionRepository.getAmoutPerCountry();
     }
 }

@@ -22,9 +22,22 @@ export class HomeComponent implements OnInit, OnDestroy {
   authSubscription?: Subscription;
   tot : ITotalTransac = {}
   amount : IMontantTransac = {}
+  public barChartOptions = {
+    scaleShowVerticalLines: false,
+    responsive: true
+  };
+  public barChartLabels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+  public barChartType = 'bar';
+  public barChartLegend = true;
+  public barChartData = [
+    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
+    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
+  ];
 
   constructor(private accountService: AccountService, private loginModalService: LoginModalService,
-    private transactionService: TransactionService) {}
+    private transactionService: TransactionService) {
+      
+    }
 
   ngOnInit(): void {
     this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
