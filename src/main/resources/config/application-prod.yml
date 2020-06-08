@@ -34,13 +34,13 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     # DCE
-    url: jdbc:postgresql://10.170.102.35:5432/boa_express_db
-    username: postgres
-    password: G66xJIf1rC4J
+    #url: jdbc:postgresql://10.170.102.35:5432/boa_express_db
+    #username: postgres
+    #password: G66xJIf1rC4J
     #CASA
-    #url: jdbc:postgresql://10.132.71.184:5432/boa_webexpressdb
-    #username: boa_userexpress
-    #password: c72loAYQ
+    url: jdbc:postgresql://10.132.71.184:5432/boa_webexpressdb
+    username: boa_userexpress
+    password: c72loAYQ
     hikari:
       poolName: Hikari
       auto-commit: false

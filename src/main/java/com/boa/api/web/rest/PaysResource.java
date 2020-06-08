@@ -1,7 +1,11 @@
 package com.boa.api.web.rest;
 
 import com.boa.api.domain.Pays;
+import com.boa.api.request.PaysActifsRequest;
+import com.boa.api.response.PaysActifsResponse;
+import com.boa.api.service.ApiService;
 import com.boa.api.service.PaysService;
+import com.boa.api.service.utils.ICodeDescResponse;
 import com.boa.api.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -18,11 +22,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,9 +44,11 @@ public class PaysResource {
     private final Logger log = LoggerFactory.getLogger(PaysResource.class);
 
     private final PaysService paysService;
+    private final ApiService apiService;
 
-    public PaysResource(PaysService paysService) {
+    public PaysResource(PaysService paysService, ApiService apiService) {
         this.paysService = paysService;
+        this.apiService = apiService;
     }
 
     /**
@@ -51,7 +60,7 @@ public class PaysResource {
     @GetMapping("/pays")
     public ResponseEntity<List<Pays>> getAllPays(Pageable pageable) {
         log.debug("REST request to get a page of Pays");
-        Page<Pays> page = paysService.findAll(pageable);
+        Page<Pays> page = apiService.findPaysActifs("CI", pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -59,9 +68,29 @@ public class PaysResource {
     @GetMapping("/paysBis")
     public ResponseEntity<List<Pays>> getAllPaysBis(Pageable pageable) {
         log.debug("REST request to get all Pays");
-        List<Pays> page = paysService.findAll();
+        List<Pays> page = paysService.findAll(); 
         //HttpHeaders headers = //PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().body(page);
+    }
+
+    @PostMapping("/paysActifs")
+    public ResponseEntity<PaysActifsResponse> getPaysActifs(
+            @RequestBody PaysActifsRequest paysActifsRequest, HttpServletRequest request) {
+        log.info("Request in getPaysActifs [{}]", paysActifsRequest);
+        
+        PaysActifsResponse response = new PaysActifsResponse();
+        // doControl
+        if(StringUtils.isEmpty(paysActifsRequest.getPaysEnvoi())
+        ) {
+            response.setCode(ICodeDescResponse.PARAM_ABSENT_CODE);
+            response.setDateResponse(Instant.now());
+            response.setDescription(ICodeDescResponse.PARAM_DESCRIPTION);
+            return ResponseEntity.ok().header("Authorization", request.getHeader("Authorization"))
+                    .body(response);
+        }
+        response = apiService.getPaysActifs(paysActifsRequest.getPaysEnvoi());
+        log.info("Response in byNumRequest [{}]", response);
+        return ResponseEntity.ok().header("Authorization", request.getHeader("Authorization")).body(response);
     }
 
     /**

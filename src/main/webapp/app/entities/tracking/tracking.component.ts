@@ -117,8 +117,8 @@ export class TrackingComponent implements OnInit, OnDestroy {
     this.ngbPaginationPage = this.page;
   }
 
-  search(): void {
-    const pageToLoad: number = 0 || this.page;
+  search(page?: number): void {
+    const pageToLoad: number = page || this.page;
     if(this.requestId===""||isUndefined(this.requestId))this.requestId=" ";
     this.trackingService
     .queryBis({dateDeb: this.dateDeb, dateFin : this.dateFin, 

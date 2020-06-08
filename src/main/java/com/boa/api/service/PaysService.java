@@ -62,6 +62,14 @@ public class PaysService {
         return paysRepository.findAll(Sort.by("pays"));
     }
 
+    /*@Transactional(readOnly = true)
+    public List<Pays> findAllActifs() {
+        log.debug("Request to get all Pays");
+        //List<Pays> findAll = paysRepository.findAll(Sort.by("pays"));
+        //List<Pays> paysList = paysRepository.findAll(Sort.by("pays"))
+        return paysRepository.findAll(Sort.by("pays"));
+    }*/
+
     /**
      * Get one pays by id.
      *

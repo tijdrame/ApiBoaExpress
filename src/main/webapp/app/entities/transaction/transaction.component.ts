@@ -67,15 +67,15 @@ export class TransactionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    /* this.activatedRoute.data.subscribe(data => {
+    this.activatedRoute.data.subscribe(data => {
       this.page = data.pagingParams.page;
       this.ascending = data.pagingParams.ascending;
       this.predicate = data.pagingParams.predicate;
       this.ngbPaginationPage = data.pagingParams.page;
       // this.loadPage();
     }); 
-    this.registerChangeInTransactions(); */
-    this.paysService.queryBis()
+    this.registerChangeInTransactions(); 
+    this.paysService.query()
     .subscribe(
       (res: HttpResponse<IPays[]>) => {
           this.paysList = res.body  || [];
@@ -138,8 +138,8 @@ export class TransactionComponent implements OnInit, OnDestroy {
     this.ngbPaginationPage = this.page;
   }
 
-  search(): void {
-    const pageToLoad: number = 0 || this.page;
+  search(page?: number): void {
+    const pageToLoad: number = page || this.page;
     let payEnv = this.paysEnvoi?.isoAlpha2!;
     let payDest = this.paysDestination?.isoAlpha2!;
     if(this.refBancaire===""||isUndefined(this.refBancaire))this.refBancaire=" ";

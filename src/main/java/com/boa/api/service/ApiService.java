@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,8 @@ import com.boa.api.response.ConfirmTansfertResponse;
 import com.boa.api.response.Confirmdeposit;
 import com.boa.api.response.EnvoiTransfertResponse;
 import com.boa.api.response.Fraistransaction;
+import com.boa.api.response.PaysActifsResponse;
+import com.boa.api.response.PaysResp;
 import com.boa.api.response.Status;
 import com.boa.api.response.TransactionByNumResponse;
 import com.boa.api.response.TransactionByRefResponse;
@@ -33,7 +36,13 @@ import com.boa.api.service.utils.Utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -143,7 +152,7 @@ public class ApiService {
                     "<typetransaction>" + envoiTransfert.getTransaction().getTypetransaction() + "</typetransaction>");
             builder.append("<nation_emet>"
                     + mapPays.get(envoiTransfert.getTransaction().getNationalite()).getIsoAlpha3() + "</nation_emet>");
-            builder.append("<country>" + envoiTransfert.getTransaction().getPaysenvoi() + "</country>");
+            builder.append("<country>" + envoiTransfert.getTransaction().getPaysenvoi()+ "</country>");
             // builder.append("<ville_recepteur>"+envoiTransfert.getTransaction().getBeneficiary()+"</ville_recepteur>");
             // builder.append("<adresse_recepteur>"+envoiTransfert.getTransaction().getBeneficiary()+"</adresse_recepteur>");
             builder.append("</envoietransaction>");
@@ -403,7 +412,9 @@ public class ApiService {
             builder.append("<libelle>" + transaction.getRaisonTransfert() + "</libelle>");
             builder.append("<compte_crediteur>" + "nil" + "</compte_crediteur>");
             builder.append("<codAuto>" + "nil" + "</codAuto>");
-
+            builder.append("<paysdest>" + transaction.getPaysDestination() + "</paysdest>");
+            
+            builder.append("</confirmtransaction>");
             builder.append("</confirmtransaction>");
             log.info("request confirmation [{}]", builder.toString());
             HttpURLConnection conn = utils.doConnexion(endPoint.getEndPoints(), builder.toString(), "application/xml",
@@ -713,6 +724,112 @@ public class ApiService {
         return genericResp;
     }
 
+    @Transactional(readOnly = true)
+    public PaysActifsResponse getPaysActifs(String paysEnvoi) {
+        log.info("Enter in getPaysActif ====== [{}]", paysEnvoi);
+        List<Pays> pays = paysService.findAll();
+        Map<String, Pays> mapPays = new HashMap<>();
+        for (Pays it : pays) {
+            mapPays.put(it.getIsoAlpha2(), it);
+        }
+        PaysActifsResponse genericResp = new PaysActifsResponse();
+
+        ParamEndPoint endPoint = endPointService.findByCodeParam("paysActifs");
+        if (endPoint == null) {
+            genericResp.setCode(ICodeDescResponse.ECHEC_CODE);
+            genericResp.setDescription(ICodeDescResponse.SERVICE_ABSENT_DESC);
+            genericResp.setDateResponse(Instant.now());
+            //tracking = createTracking(tracking, ICodeDescResponse.ECHEC_CODE, "paysActifs",
+            //        genericResp.toString(), paysEnvoi, genericResp.getResponseReference());
+            //trackingService.save(tracking);
+            return genericResp;
+        }
+        try {
+            RequestParam requestParam = requestParamService.findByPays(paysEnvoi);
+            if (requestParam == null) {
+                genericResp.setCode(ICodeDescResponse.ECHEC_CODE);
+                genericResp.setDescription(ICodeDescResponse.PARAMS_ADDITIONNELS_NON_TROUVES);
+                genericResp.setDateResponse(Instant.now());
+                //tracking = createTracking(tracking, ICodeDescResponse.ECHEC_CODE, "paysActifs",
+                  //      genericResp.toString(), paysEnvoi, genericResp.getResponseReference());
+                //trackingService.save(tracking);
+                return genericResp;
+            }
+
+            String jsonStr = new JSONObject().put("channel_id", requestParam.getChannelId())
+                    .put("user_id", requestParam.getUserId())
+                    .put("transaction_secret", requestParam.getTransactionSecret())
+                    .put("requestid", requestParam.getRequestId())
+                    .put("codepartenaire", requestParam.getCodePartenaire())
+                    .toString();
+            log.info("request confirmation [{}]", jsonStr);
+            HttpURLConnection conn = utils.doConnexion(endPoint.getEndPoints(), jsonStr, "application/json",
+                    "");
+            BufferedReader br = null;
+            JSONObject obj = new JSONObject();
+            String result = "";
+            log.info("resp code envoi [{}]", conn.getResponseCode());
+            if (conn != null && conn.getResponseCode() == 200) {
+                br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String ligne = br.readLine();
+                while (ligne != null) {
+                    result += ligne;
+                    ligne = br.readLine();
+                }
+                log.info("resp envoi ===== [{}]", result);
+                obj = new JSONObject(result);
+                if (obj.toString().contains("200")) {
+                    genericResp.setCode(ICodeDescResponse.SUCCES_CODE);
+                    genericResp.setDescription(ICodeDescResponse.SUCCES_DESCRIPTION);
+                    genericResp.setDateResponse(Instant.now());
+
+                    obj = obj.getJSONObject("getboapaysresponse");
+                    genericResp.detailsop(obj.getString("detailsop"));
+                    genericResp.setCodeop(obj.getString("codeop"));
+                    JSONArray array = obj.getJSONArray("pays");
+                    if(array!=null && array.length()>0){
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject myObj = array.getJSONObject(i);
+                            PaysResp paysResp = new PaysResp();
+                            paysResp.code(myObj.getString("code"))
+                            .nom(myObj.getString("nom"));
+                            genericResp.getPays().add(paysResp);
+                        }
+                    }
+                    //tracking = createTracking(tracking, ICodeDescResponse.SUCCES_CODE, "paysActifs",
+                      //      genericResp.toString(), paysEnvoi, genericResp.getResponseReference());
+                } else {
+                    // obj = obj.getJSONObject("xxx");
+                    genericResp.setDetailsop(obj.getString("detailsop"));
+                    genericResp.setCodeop(obj.getString("codeop"));
+                    genericResp.setCode(ICodeDescResponse.ECHEC_CODE);
+                    genericResp.setDateResponse(Instant.now());
+                    genericResp.setDescription(ICodeDescResponse.ECHEC_DESCRIPTION);
+                    //tracking = createTracking(tracking, ICodeDescResponse.ECHEC_CODE, "paysActifs", result,
+                    //paysEnvoi, genericResp.getResponseReference());
+                }
+            } else {
+                // conn =null
+                br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                String ligne = br.readLine();
+                while (ligne != null) {
+                    result += ligne;
+                    ligne = br.readLine();
+                }
+                log.info("resp envoi error ===== [{}]", result);
+                genericResp.setCode(ICodeDescResponse.ECHEC_CODE);
+                genericResp.setDateResponse(Instant.now());
+                genericResp.setDescription(ICodeDescResponse.ECHEC_DESCRIPTION);
+            }
+        } catch (Exception e) {
+            log.error("Exception in pays Actifs [{}]", e);
+            genericResp.setCode(ICodeDescResponse.ECHEC_CODE);
+            genericResp.setDateResponse(Instant.now());
+            genericResp.setDescription(ICodeDescResponse.ECHEC_DESCRIPTION);
+        }
+        return genericResp;
+    }
+
     public Tracking createTracking(Tracking tracking, String code, String endPoint, String result, String req,
             String reqId) {
         // Tracking tracking = new Tracking();
@@ -765,6 +882,28 @@ public class ApiService {
             transaction.isConfirmed(true).dateConfirmed(Instant.now());
         }
         return transaction;
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Pays> findPaysActifs(String paysEnvoi, Pageable pageable) {
+        log.info("Request to get all Pays");
+        List<Pays> pays = paysService.findAll();
+        Map<String, Pays> mapPays = new HashMap<>();
+        for (Pays it : pays) {
+            mapPays.put(it.getIsoAlpha3(), it);
+        }
+        PaysActifsResponse resp = getPaysActifs(paysEnvoi);
+        List<Pays> paysARetourner = new ArrayList<>();
+        if(resp!=null && !resp.getPays().isEmpty()){
+            for (PaysResp it : resp.getPays()) {
+                Pays eachP = mapPays.get(it.getCode());
+                paysARetourner.add(eachP);
+            }
+        }
+ 
+        pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("pays"));
+        //List<Pays> findAll = paysRepository.findAll(Sort.by("pays"));
+        return new PageImpl<>(paysARetourner, pageable, pageable.getPageSize()); 
     }
 
 }
