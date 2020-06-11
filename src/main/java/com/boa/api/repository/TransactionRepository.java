@@ -36,10 +36,20 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     @Query("Select count(t.id) FROM Transaction t where t.isConfirmed =?1")
     Long getTotalTransaction(Boolean status);
 
+    @Query("Select count(t.id) FROM Transaction t ")
+    Long getTotalTransaction();
+
     @Query("Select SUM(t.montant), SUM(t.montantFrais) FROM Transaction t where t.isConfirmed =true")
     Object getMontantAndFrais();
 
-    @Query("Select SUM(t.montant), SUM(t.montantFrais), p.pays FROM Transaction t, Pays p where t.isConfirmed =true and p.isoAlpha2=t.paysEnvoi group by p.pays")
+    @Query("Select SUM(t.montant), SUM(t.montantFrais), p.pays FROM Transaction t, Pays p where t.isConfirmed =true and "
+    +" p.isoAlpha2=t.paysEnvoi group by p.pays")
     List<Object> getAmoutPerCountry();
+
+    @Query("Select SUM(t.montant), SUM(t.montantFrais), p.pays, Month(t.dateConfirmed),YEAR(t.dateConfirmed)  FROM Transaction t, Pays p "+
+    " where t.isConfirmed =true and p.isoAlpha2=t.paysEnvoi  "+ //and YEAR(t.dateConfirmed)=?1
+    " group by Month(t.dateConfirmed),YEAR(t.dateConfirmed), p.pays"+
+    " having  YEAR(t.dateConfirmed)=?1")
+    List<Object> getAmoutPerPeriod(Integer year);
     
 }

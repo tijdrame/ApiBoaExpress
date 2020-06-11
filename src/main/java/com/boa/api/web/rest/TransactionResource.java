@@ -2,7 +2,9 @@ package com.boa.api.web.rest;
 
 import com.boa.api.domain.Transaction;
 import com.boa.api.response.AmountPerCountryResponse;
+import com.boa.api.response.AmountPerPeriodResponse;
 import com.boa.api.response.ItemCountry;
+import com.boa.api.response.ItemPeriod;
 import com.boa.api.response.MontantTransactionResponse;
 import com.boa.api.response.TotalTransactionResponse;
 import com.boa.api.service.TransactionService;
@@ -167,7 +169,7 @@ public class TransactionResource {
     @GetMapping(path = "/transactionsNumber")
     public ResponseEntity<TotalTransactionResponse>getTotalTransaction() {
         Long totConf = transactionService.getTotalTransaction(true);
-        Long totGen = transactionService.getTotalTransaction(false);
+        Long totGen = transactionService.getTotalTransaction();
         TotalTransactionResponse response = new TotalTransactionResponse();
         response.setCode("200");
         response.setDescription("Operation effectuee avec success");
@@ -212,6 +214,35 @@ public class TransactionResource {
             .country(arrayRefVar[2].toString())
             ;
             response.getItemCountries().add(itemCountry);
+            }
+            
+        }
+        
+        response.setCode("200");
+        response.setDescription("Operation effectuee avec success");
+        response.setDateResponse(Instant.now());
+        
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping(path = "/transactionsPeriod")
+    public ResponseEntity<AmountPerPeriodResponse>getAmoutPerPeriod() {
+        List<Object> myObjects = transactionService.getAmoutPerPeriod();
+        log.info("myObj [{}]",myObjects);
+        AmountPerPeriodResponse response = new AmountPerPeriodResponse();
+        if(myObjects!=null){
+            for (Object object : myObjects) {
+                ItemPeriod itemPeriod = new ItemPeriod();
+                Object[] arrayRefVar =  (Object[]) object;
+            log.info("myObj [{}]",arrayRefVar[0]);
+            itemPeriod
+            .amount((Double)arrayRefVar[0])
+            .fees((Double)arrayRefVar[1])
+            .country(arrayRefVar[2].toString())
+            .month(arrayRefVar[3].toString())
+            .year((Integer)arrayRefVar[4])
+            ;
+            response.getItemPeriods().add(itemPeriod);
             }
             
         }

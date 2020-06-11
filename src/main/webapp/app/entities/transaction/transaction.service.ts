@@ -4,12 +4,14 @@ import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
-import { ITransaction, ITotalTransac, IMontantTransac } from 'app/shared/model/transaction.model';
+import { ITransaction, ITotalTransac, IMontantTransac, IMontantCountry, IMontantPeriod } from 'app/shared/model/transaction.model';
 
 type EntityResponseType = HttpResponse<ITransaction>;
 type EntityResponseType2 = HttpResponse<ITotalTransac>;
 type EntityResponseType3 = HttpResponse<IMontantTransac>;
 type EntityArrayResponseType = HttpResponse<ITransaction[]>;
+type EntityResponseType4 = HttpResponse<IMontantCountry[]>;
+type EntityResponseType5 = HttpResponse<IMontantPeriod[]>;
 
 @Injectable({ providedIn: 'root' })
 export class TransactionService {
@@ -52,4 +54,13 @@ export class TransactionService {
   getMontantTransaction(): Observable<EntityResponseType3> {
     return this.http.get<IMontantTransac>(`${this.resourceUrl+"Montant"}`, { observe: 'response' });
   }
+
+  getMontantCountry(): Observable<EntityResponseType4> {
+    return this.http.get<IMontantCountry[]>(`${this.resourceUrl+"Country"}`, { observe: 'response' });
+  }
+
+  getMontantPeriod(): Observable<EntityResponseType5> {
+    return this.http.get<IMontantPeriod[]>(`${this.resourceUrl+"Period"}`, { observe: 'response' });
+  }
+
 }

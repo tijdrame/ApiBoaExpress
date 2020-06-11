@@ -48,10 +48,10 @@
         <span class="hipster img-fluid rounded"></span>
     </div>
     <div class="col-md-9">
-        <h1 class="display-4" jhiTranslate="home.title">Welcome, Java Hipster!</h1>
-        <p class="lead" jhiTranslate="home.subtitle">This is your homepage</p>
+        <!-- <h1 class="display-4" jhiTranslate="home.title">Welcome, Java Hipster!</h1> -->
+        <!-- <p class="lead" jhiTranslate="home.subtitle">This is your homepage</p> -->
 
-        
+
 
         <div *jhiHasAnyAuthority="['ROLE_ADMIN','ROLE_USER']">
             <div class="row">
@@ -60,27 +60,28 @@
                     <span *ngIf="account" jhiTranslate="home.logged.message"
                           translateValues="{username: '{{account.login}}'}"> You are logged in as user "{{account.login}}". </span>
                 </div>-->
-                <div class="card text-white bg-success mb-3" style="max-width: 18rem;" >
+                <div style="width: 100px"></div>
+                <div class="card text-white bg-success mb-3" style="width: 230px;height: 230px;">
                     <img class="card-img-top" src="../../content/images/transaction.png" alt="Card image cap"
-                    style="width: 200px;height: 200px;">
+                        style="width: 80px;height: 80px;align-self: center;">
                     <div class="card-header">Transactions</div>
                     <div class="card-body">
                         <h5 class="card-title">Confirmés: {{ tot?.totalConfirme|number }}</h5>
                         <h5 class="card-title">Total: {{ tot?.totalGeneral|number }}</h5>
                     </div>
                 </div>
-            
-            <div style="width: 90px"></div>
-            <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
-                <img class="card-img-top" src="../../content/images/argent.jpg" alt="money" 
-                style="width: 200px;height: 200px;">
-                <div class="card-header">Montant Total </div>
-                <div class="card-body">
-                    <h5 class="card-title">Frais: {{amount.montantFrais|number}}</h5>
-                    <h5 class="card-title">Total Gen.: {{amount.montant|number}}</h5>
+
+                <div style="width: 300px"></div>
+                <div class="card text-white bg-warning mb-3" style="width: 230px;height: 230px;">
+                    <img class="card-img-top" src="../../content/images/argent.jpg" alt="money"
+                        style="width: 230px;height: 80px;align-self: center;">
+                    <div class="card-header">Montant Total </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Frais: {{amount.montantFrais|number}}</h5>
+                        <h5 class="card-title">Total Gen.: {{amount.montant|number}}</h5>
+                    </div>
                 </div>
             </div>
-        </div>
             <!-- <div class="alert alert-success" *ngSwitchCase="true">
                 <span id="home-logged-message" *ngIf="account" jhiTranslate="home.logged.message"
                     [translateValues]="{username: account.login}"> You are logged in as user "{{account.login}}". </span>
@@ -97,23 +98,26 @@
         </div>
 
         <div>
-  <div style="display: block">
-    <canvas baseChart 
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [legend]="barChartLegend"
-            [chartType]="barChartType"
-            >
-    </canvas>
-  </div>
-</div>
+
+            <div style="display: block" *jhiHasAnyAuthority="['ROLE_ADMIN','ROLE_USER']" >
+            <h3 jhiTranslate="global.chartMensuel">If you want to </h3>
+                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                    [legend]="barChartLegend" [chartType]="barChartType" [colors]="colors">
+                </canvas>
+            </div> 
+        </div>
+
+        <div style="display: block" *jhiHasAnyAuthority="['ROLE_ADMIN','ROLE_USER']">
+            <h3 jhiTranslate="global.chartCountry">If you want to </h3>
+            <canvas baseChart [colors]="colors" [data]="pieChartData" [labels]="pieChartLabels"
+                [chartType]="pieChartType"></canvas>
+        </div>
 
         <!-- <p jhiTranslate="home.question">
             If you have any question on JHipster:
         </p> -->
 
-        
+
 
         <p>
             <!-- <span jhiTranslate="home.like">If you like JHipster, don't forget to give us a star on</span> <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer" jhiTranslate="home.github">GitHub</a>! -->

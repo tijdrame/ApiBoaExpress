@@ -26,6 +26,38 @@ export interface ITransaction {
   dateConfirmed?: Moment;
 }
 
+export interface IMontantPeriod {
+  amount?: number;
+  fees?: number;
+  country?: string;
+  month?: string;
+  year?: number;
+}
+
+export class MontantPeriod implements IMontantPeriod {
+  constructor(
+    public amount?: number,
+    public fees?: number,
+    public month?: string,
+    public year?: number,
+    public country?: string)
+    {}
+}
+
+export interface IMontantCountry {
+  amount?: number;
+  fees?: number;
+  country?: string;
+}
+
+export class MontantCountry implements IMontantCountry {
+  constructor(
+    public amount?: number,
+    public fees?: number,
+    public country?: string)
+    {}
+}
+
 export interface IMontantTransac {
   montantFrais?: number;
   montant?: number;

@@ -19,6 +19,8 @@ import org.springframework.util.StringUtils;
 import liquibase.pro.packaged.p;
 
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -123,6 +125,10 @@ public class TransactionService {
     public Long getTotalTransaction(Boolean status) {
         return transactionRepository.getTotalTransaction(status);
     }
+
+    public Long getTotalTransaction() {
+        return transactionRepository.getTotalTransaction();
+    }
     
     public Object getMontantAndFrais() {
         return transactionRepository.getMontantAndFrais();
@@ -131,4 +137,12 @@ public class TransactionService {
     public List<Object> getAmoutPerCountry() {
         return transactionRepository.getAmoutPerCountry();
     }
+
+    public List<Object> getAmoutPerPeriod() {
+        ZoneId z = ZoneId.systemDefault();
+        ZonedDateTime zdt = ZonedDateTime.now(z);
+
+        return transactionRepository.getAmoutPerPeriod(zdt.getYear());
+    }
+
 }

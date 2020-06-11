@@ -1,6 +1,8 @@
 {
   "global": {
     "title": "ApiBoaExpress",
+    "chartCountry": "Graphe par pays d'Envoi",
+    "chartMensuel": "Montant mensuel par pays d'Envoi",
     "imprimer": "Imprimer",
     "browsehappy": "Vous utilisez un <strong>ancien</strong> navigateur. Veuillez <a href=\"http://browsehappy.com/?locale=fr\">mettre à jour votre navigateur</a> pour une meilleure expérience.",
     "menu": {
