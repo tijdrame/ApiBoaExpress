@@ -296,7 +296,9 @@ public class ApiService {
                 }
                 log.info("resp envoi ===== [{}]", result);
                 obj = new JSONObject(result);
-                if (obj.get("getfraisettauxdechangeresponse").toString().contains("200")) {
+                if (obj.get("getfraisettauxdechangeresponse").toString().contains("frais")
+                // || obj.get("getfraisettauxdechangeresponse").toString().contains("200")
+                ) {
                     obj = obj.getJSONObject("getfraisettauxdechangeresponse");
                     genericResp.setDetailsop(obj.getString("detailsop"));
                     Fraistransaction frais = new Fraistransaction();
@@ -316,6 +318,7 @@ public class ApiService {
                     genericResp.setCode(ICodeDescResponse.SUCCES_CODE);
                     genericResp.setDescription(ICodeDescResponse.SUCCES_DESCRIPTION);
                     genericResp.setDateResponse(Instant.now());
+                    genericResp.codeop(obj.getString("codeop"));
                     tracking = createTracking(tracking, ICodeDescResponse.SUCCES_CODE, request.getRequestURI(),
                             genericResp.toString(), calculfraisTransfert.toString(),
                             genericResp.getResponseReference());
