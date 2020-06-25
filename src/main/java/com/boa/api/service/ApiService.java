@@ -199,7 +199,7 @@ public class ApiService {
                     tracking = createTracking(tracking, ICodeDescResponse.SUCCES_CODE, request.getRequestURI(),
                             genericResp.toString(), envoiTransfert.toString(), genericResp.getResponseReference());
                     createTransaction(envoiTransfert, genericResp.getTransaction().getNumerotransaction(),
-                            transaction.getFrais());
+                            transaction.getFrais(), transaction.getTva());
                 } else {
                     obj = obj.getJSONObject("deposertransactionresponse");
                     genericResp.setDetailsop(obj.getString("detailsop"));
@@ -410,7 +410,8 @@ public class ApiService {
             builder.append("<valdisponible>" + "V" + "</valdisponible>");
             builder.append("<operation>" + "TRF" + "</operation>");
             builder.append("<country>" + transaction.getPaysEnvoi() + "</country>");
-            builder.append("<mntfrais>" + transaction.getMontantFrais().intValue() + "</mntfrais>");
+            Double tva = transaction.getMontantFrais().intValue() + transaction.getTva();
+            builder.append("<mntfrais>" + tva + "</mntfrais>");
             builder.append("<libelle>" + transaction.getRaisonTransfert() + "</libelle>");
             builder.append("<compte_crediteur>" + "nil" + "</compte_crediteur>");
             builder.append("<codAuto>" + "nil" + "</codAuto>");
@@ -845,9 +846,11 @@ public class ApiService {
         return tracking;
     }
 
-    private Transaction createTransaction(EnvoiTransfertRequest transfertRequest, String numTransaction, Double frais) {
+    private Transaction createTransaction(EnvoiTransfertRequest transfertRequest, String numTransaction, 
+    Double frais, Double tva) {
         log.info("Enter in createTransaction transfertRequest[{}], numTransac [{}]", transfertRequest, numTransaction);
         Transaction transaction = new Transaction();
+        transaction.setTva(tva);
         transaction.beneficiaryName(transfertRequest.getTransaction().getBeneficiary().getNom())
                 .beneficiaryPhone(transfertRequest.getTransaction().getBeneficiary().getTelephoneport())
                 .beneficiaryPrenom(transfertRequest.getTransaction().getBeneficiary().getPrenom())

@@ -33,6 +33,10 @@ public class Transaction implements Serializable {
     private Double montantFrais;
 
     @NotNull
+    @Column(name = "tva", nullable = true)
+    private Double tva;
+
+    @NotNull
     @Column(name = "pays_envoi", nullable = false)
     private String paysEnvoi;
 
@@ -402,6 +406,7 @@ public class Transaction implements Serializable {
             ", dateCreated='" + getDateCreated() + "'" +
             ", dateConfirmed='" + getDateConfirmed() + "'" +
             ", montantFrais='" + getMontantFrais() + "'" +
+            ", tva='" + tva + "'" +
             "}";
     }
 
@@ -481,6 +486,14 @@ public class Transaction implements Serializable {
     public Transaction montantFrais(Double montantFrais) {
         this.montantFrais = montantFrais;
         return this;
+    }
+
+    public Double getTva() {
+        return this.tva;
+    }
+
+    public void setTva(Double tva) {
+        this.tva = tva;
     }
 
 }

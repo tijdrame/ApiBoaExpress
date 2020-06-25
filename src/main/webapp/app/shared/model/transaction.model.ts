@@ -3,6 +3,7 @@ import { Moment } from 'moment';
 export interface ITransaction {
   id?: number;
   montant?: number;
+  tva?: number;
   montantFrais?: number;
   paysEnvoi?: string;
   paysDestination?: string;
@@ -106,7 +107,9 @@ export class Transaction implements ITransaction {
     public codeConfim?: string,
     public dateCreated?: Moment,
     public dateConfirmed?: Moment, 
-    public montantFrais?: number
+    public montantFrais?: number,
+    public tva?: number
+    
   ) {
     this.isConfirmed = this.isConfirmed || false;
   }

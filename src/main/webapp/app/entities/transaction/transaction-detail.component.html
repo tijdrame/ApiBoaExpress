@@ -148,15 +148,15 @@
                     </dd>
                 </div>
             </div>
-                
-            <dl class="row-md jh-entity-details">
-                
-                
-                <!-- <dt><span jhiTranslate="apiBoaExpressApp.transaction.codeConfim">Code Confim</span></dt>
+            <div class="row">
+                <div class="col">
+                    <dt><span jhiTranslate="apiBoaExpressApp.transaction.tva">Numero Transaction</span></dt>
                 <dd>
-                    <span>{{ transaction.codeConfim }}</span>
-                </dd> -->
-            </dl>
+                    <span>{{ transaction.tva|number }}</span>
+                </dd>
+            </div>
+                
+            <br>
 
             <button type="submit"
                     (click)="previousState()"

@@ -43,7 +43,8 @@
       "codeConfim": "Code Confim",
       "dateConfirmed": "Confirmed Date",
       "dateCreated": "Created Date",
-      "montantFrais": "Fees"
+      "montantFrais": "Fees",
+      "tva": "TVA"
       
     }
   }
