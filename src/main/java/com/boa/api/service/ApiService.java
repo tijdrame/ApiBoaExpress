@@ -410,7 +410,8 @@ public class ApiService {
             builder.append("<valdisponible>" + "V" + "</valdisponible>");
             builder.append("<operation>" + "TRF" + "</operation>");
             builder.append("<country>" + transaction.getPaysEnvoi() + "</country>");
-            Double tva = transaction.getMontantFrais().intValue() + transaction.getTva();
+            
+            Double tva = transaction.getMontantFrais() + transaction.getTva();
             builder.append("<mntfrais>" + tva + "</mntfrais>");
             builder.append("<libelle>" + transaction.getRaisonTransfert() + "</libelle>");
             builder.append("<compte_crediteur>" + "nil" + "</compte_crediteur>");
