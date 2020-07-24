@@ -418,6 +418,8 @@ public class ApiService {
             builder.append("<codAuto>" + "nil" + "</codAuto>");
             builder.append("<paysdest>" + transaction.getPaysDestination() + "</paysdest>");
             
+            builder.append("<baseurl>" + requestParam.getBaseUrl() + "</baseurl>");
+            
             builder.append("</confirmtransaction>");
             builder.append("</confirmtransaction>");
             log.info("request confirmation [{}]", builder.toString());

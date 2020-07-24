@@ -48,6 +48,9 @@ public class RequestParam implements Serializable {
     @Column(name = "pays", nullable = false)
     private String pays;
 
+    @Column(name = "base_url")
+    private String baseUrl;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -134,6 +137,15 @@ public class RequestParam implements Serializable {
     public void setPays(String pays) {
         this.pays = pays;
     }
+
+    public String getBaseUrl() {
+        return this.baseUrl;
+    }
+
+    public void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -162,6 +174,7 @@ public class RequestParam implements Serializable {
             ", requestId='" + getRequestId() + "'" +
             ", codePartenaire='" + getCodePartenaire() + "'" +
             ", pays='" + getPays() + "'" +
+            ", baseUrl='" + getBaseUrl() + "'" +
             "}";
     }
 }

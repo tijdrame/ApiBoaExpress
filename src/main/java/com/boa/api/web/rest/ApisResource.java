@@ -58,7 +58,7 @@ public class ApisResource {
         this.utils = utils;
     }
 
-    @PostMapping("/envoiTransfert")
+    @PostMapping("/envoiTransfert") 
     public ResponseEntity<EnvoiTransfertResponse> envoiTransfert(@RequestBody EnvoiTransfertRequest envoiTransfert,
             HttpServletRequest request) {
         log.info("Enter in envoiTransfert [{}]", envoiTransfert);
